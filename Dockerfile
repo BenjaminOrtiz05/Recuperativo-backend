@@ -18,12 +18,20 @@ COPY . /var/www/html
 
 WORKDIR /var/www/html
 
-# Instala dependencias
+# Instala dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Configura permisos y caches
-RUN chown -R www-data:www-data /var/www/html \
-    && php artisan config:cache \
+# Cambia DocumentRoot a /var/www/html/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
+# Habilita mod_rewrite para Laravel
+RUN a2enmod rewrite
+
+# Otorga permisos a storage y bootstrap/cache (importante para Laravel)
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Genera caches de configuración, rutas y vistas
+RUN php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
 

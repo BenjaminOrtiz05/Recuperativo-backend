@@ -4,7 +4,10 @@ services:
     env: docker
     repo: https://github.com/BenjaminOrtiz05/Recuperativo-backend
     branch: main
-    rootDir: .  # Cambia si Laravel está en una subcarpeta
+    rootDir: .             # Si Laravel está en la raíz del repo
     plan: free
-    dockerContext: .
-    dockerfilePath: ./Dockerfile
+    dockerContext: .       # Contexto donde está el Dockerfile
+    dockerfilePath: ./Dockerfile  # Ruta al Dockerfile dentro del repo
+    autoDeploy: true       # Opcional: para que despliegue en cada push
+    buildCommand: ""       # No necesario con Docker, dejar vacío
+    startCommand: ""       # Docker usará el CMD o EXPOSE del Dockerfile
