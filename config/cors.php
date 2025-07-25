@@ -6,7 +6,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000', 'https://recuperativo-backend.onrender.com'], // O el dominio de tu front
+    'allowed_origins' => ['http://localhost:3000', 'https://glowself-one.vercel.app'], // O el dominio de tu front
 
     'allowed_headers' => ['*'],
 
