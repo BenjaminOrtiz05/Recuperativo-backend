@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: laravel-backend
+    env: php
+    buildCommand: "composer install --no-dev --optimize-autoloader"
+    startCommand: "php artisan serve --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:K4wgLE1CfkBA5BnRdinyPNPKsyCEl4QF+wrk0UTKYW8=
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://your-backend.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: YOUR_DATABASE_HOST
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: YOUR_DATABASE_NAME
+      - key: DB_USERNAME
+        value: YOUR_DATABASE_USER
+      - key: DB_PASSWORD
+        value: YOUR_DATABASE_PASSWORD
