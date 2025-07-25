@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Instala dependencias
+# Instala dependencias necesarias
 RUN apt-get update && apt-get install -y \
     libonig-dev \
     libzip-dev \
@@ -13,31 +13,31 @@ RUN apt-get update && apt-get install -y \
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copia la app
+# Copia los archivos del proyecto
 COPY . /var/www/html
 
+# Define directorio de trabajo
 WORKDIR /var/www/html
 
-# Instala dependencias PHP
+# Instala dependencias PHP sin desarrollo
 RUN composer install --no-dev --optimize-autoloader
 
-# Cambia DocumentRoot a /var/www/html/public
+# Cambia DocumentRoot a /public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Permite que .htaccess funcione (AllowOverride All)
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+# Habilita mod_rewrite y AllowOverride para .htaccess
+RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf \
+    && a2enmod rewrite
 
-# Habilita mod_rewrite para Laravel
-RUN a2enmod rewrite
-
-# Otorga permisos a storage y bootstrap/cache (importante para Laravel)
+# Asigna permisos correctos a Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN php artisan migrate --force
+# Copia el script de inicio
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Genera caches de configuración, rutas y vistas
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# Usa el script como comando de inicio
+CMD ["/start.sh"]
 
+# Expone el puerto por defecto de Apache
 EXPOSE 80
