@@ -1,6 +1,6 @@
 DB_CONNECTION=mysql
-DB_HOST=mysql.railway.internal
-DB_PORT=3306
+DB_HOST=nozomi.proxy.rlwy.net
+DB_PORT=15358
 DB_DATABASE=railway
 DB_USERNAME=root
 DB_PASSWORD=vJAshmGLQvsvvUrBFsqRpltxvZnZOztZ
