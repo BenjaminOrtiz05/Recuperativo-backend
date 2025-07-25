@@ -33,6 +33,8 @@ RUN a2enmod rewrite
 # Otorga permisos a storage y bootstrap/cache (importante para Laravel)
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN php artisan migrate --force
+
 # Genera caches de configuración, rutas y vistas
 RUN php artisan config:cache \
     && php artisan route:cache \
