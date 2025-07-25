@@ -6,7 +6,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000', 'https://glowself-one.vercel.app'], // tus URLs frontend
+    'allowed_origins' => ['https://glowself-one.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
@@ -19,4 +19,5 @@ return [
     'supports_credentials' => false,
 
 ];
+
 
