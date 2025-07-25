@@ -2,11 +2,11 @@
 
 return [
 
-    'paths' => ['api/*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'], // O el dominio de tu front
+    'allowed_origins' => ['http://localhost:3000', 'https://recuperativo-backend.onrender.com'], // O el dominio de tu front
 
     'allowed_headers' => ['*'],
 
