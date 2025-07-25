@@ -9,9 +9,22 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Course::all();
+        $query = $request->query('query');      // parámetro ?query=
+        $category = $request->query('category'); // parámetro ?category=
+
+        $courses = Course::query();
+
+        if ($query) {
+            $courses->where('name', 'like', "%{$query}%");
+        }
+
+        if ($category && $category !== 'all') {
+            $courses->where('category', $category);
+        }
+
+        return $courses->get();
     }
 
     public function show($id)
