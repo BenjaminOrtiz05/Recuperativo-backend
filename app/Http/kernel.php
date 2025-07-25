@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            // Aquí no es necesario poner CORS, se maneja globalmente en $middleware
+            \App\Http\Middleware\LogRequestMethod::class,  // Middleware para loguear método y URL
         ],
     ];
 
